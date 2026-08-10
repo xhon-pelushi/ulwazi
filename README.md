@@ -54,6 +54,30 @@ If you change dependencies, you will need to re-build the virtual environment en
 That can be done by manually deleting the `.venv` folder or with the `make clean`
 command.
 
+### Running the test suite
+
+The test suite is split into fast and slow tests. Fast tests run on every
+change; slow tests (PDF generation, browser-based visual checks, and Python
+version compatibility) require extra system dependencies or take longer.
+
+```shell
+make test              # Run fast tests only
+make test-fast         # Same as 'make test'
+make test-slow         # Run slow tests only (PDF builds, browser checks)
+make test-all          # Run all tests (fast and slow)
+make test-python-versions  # Build theme and docs on every supported Python version (slow)
+make test-coverage     # Run tests and generate coverage report
+```
+
+The available tests are:
+
+- **test_site_validation.py** — validates built HTML for broken assets (missing CSS, JS, images)
+- **test_pdf_generation.py** — verifies PDF generation produces the expected output file *(slow)*
+- **test_scss_propagation.py** — tests SCSS compilation and style propagation to rendered HTML using Playwright *(partially slow)*
+- **test_python_versions.py** — builds the theme and sample docs on every supported Python version *(slow)*
+
+See the [Tests documentation](https://canonical-ulwazi.readthedocs-hosted.com/content/tests/) for more details on the test suite.
+
 ## Contributing
 
 The theme files are located in the `ulwazi` folder:
